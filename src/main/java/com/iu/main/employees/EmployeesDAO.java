@@ -5,21 +5,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.iu.main.util.DBConnection;
 
 public class EmployeesDAO {
 	//월급의 평균
-	public void getAvg() throws Exception{
+	public HashMap<String, Integer> getAvg() throws Exception{
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		Connection connection = DBConnection.getConnection();
-		String sql = "SELECT AVG(SALARY), SUM(SALARY) FROM EMPLOYEES";
+		String sql = "SELECT AVG(SALARY)*12+100 AS A, SUM(SALARY) FROM EMPLOYEES";
 		PreparedStatement st = connection.prepareStatement(sql);
 		ResultSet rs = st.executeQuery();
 		rs.next();
 		
+		//1. List, Array
+		//2. DTO(class)
+		//3. map(key,value)
+		
+		map.put("avg", rs.getInt("A"));
+		map.put("sum", rs.getInt(2));
 		
 		DBConnection.disConnect(rs, st, connection);
-		
+		return map;
 	}
 	
 	
@@ -41,7 +49,7 @@ public class EmployeesDAO {
 			employeesDTO.setLAST_NAME(rs.getNString("LAST_NAME"));
 			employeesDTO.setEMAIL(rs.getString("EMAIL"));
 			employeesDTO.setPHONE_NUMBER(rs.getString("PHONE_NUMBER"));
-			employeesDTO.setHIRE_DATE(rs.getDate("HIRE_DATE"));
+			employeesDTO.setHIRE_DATE(rs.getString("HIRE_DATE"));
 			employeesDTO.setJOB_ID(rs.getString("JOB_ID"));
 			employeesDTO.setSALARY(rs.getInt("SALARY"));
 			employeesDTO.setCOMMISSION_PCT(rs.getDouble("COMMISSION_PCT"));
@@ -67,7 +75,7 @@ public class EmployeesDAO {
 			employeesDTO.setLAST_NAME(rs.getNString("LAST_NAME"));
 			employeesDTO.setEMAIL(rs.getString("EMAIL"));
 			employeesDTO.setPHONE_NUMBER(rs.getString("PHONE_NUMBER"));
-			employeesDTO.setHIRE_DATE(rs.getDate("HIRE_DATE"));
+			employeesDTO.setHIRE_DATE(rs.getString("HIRE_DATE"));
 			employeesDTO.setJOB_ID(rs.getString("JOB_ID"));
 			employeesDTO.setSALARY(rs.getInt("SALARY"));
 			employeesDTO.setCOMMISSION_PCT(rs.getDouble("COMMISSION_PCT"));

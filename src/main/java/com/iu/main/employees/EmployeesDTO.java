@@ -10,7 +10,7 @@ public class EmployeesDTO {
 	private String LAST_NAME;
 	private String EMAIL;
 	private String PHONE_NUMBER;
-	private Date HIRE_DATE;
+	private String HIRE_DATE;
 	private String JOB_ID;
 	private Integer SALARY;
 	private Double COMMISSION_PCT;
@@ -47,11 +47,11 @@ public class EmployeesDTO {
 	public void setPHONE_NUMBER(String pHONE_NUMBER) {
 		PHONE_NUMBER = pHONE_NUMBER;
 	}
-	public Date getHIRE_DATE() {
+	public String getHIRE_DATE() {
 		return HIRE_DATE;
 	}
-	public void setHIRE_DATE(Date date) {
-		HIRE_DATE = date;
+	public void setHIRE_DATE(String hIRE_DATE) {
+		HIRE_DATE = hIRE_DATE;
 	}
 	public String getJOB_ID() {
 		return JOB_ID;

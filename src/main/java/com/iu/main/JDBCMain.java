@@ -16,14 +16,16 @@ public class JDBCMain {
 		System.out.println("start");
 		
 //		DBConnection con = new DBConnection();
-		DepartmentDAO dao1 = new DepartmentDAO();
+		//DepartmentDAO dao1 = new DepartmentDAO();
 		//LocationDAO dao2 = new LocationDAO();
-		EmployeesDAO dao3 = new EmployeesDAO();
-		DepartmentController dc = new DepartmentController();
-		LocationController lc = new LocationController();
-		EmployeesController ec = new EmployeesController();
+		//EmployeesDAO dao3 = new EmployeesDAO();
+		//DepartmentController dc = new DepartmentController();
+		//LocationController lc = new LocationController();
+		//EmployeesController ec = new EmployeesController();
+		FrontController fc = new FrontController();
 		try {
-			lc.start();
+			fc.start();
+			//lc.start();
 			//dc.start();
 			//ec.start();
 			//DepartmentDTO departmentDTO = new DepartmentDTO();
