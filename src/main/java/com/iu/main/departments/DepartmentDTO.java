@@ -1,6 +1,10 @@
 package com.iu.main.departments;
 
-public class DepartmentDTO {
+import java.util.ArrayList;
+
+import com.iu.main.employees.EmployeesDTO;
+
+public class DepartmentDTO{
 	//모든 멤버변수의 접근지정자는 private
 	//멤버변수의 데이터타입과 변수명은
 	//Table의 컬럼과 데이터타입과 컬럼명과 일치 시킴
@@ -11,8 +15,18 @@ public class DepartmentDTO {
 	private String department_name;
 	private Integer manager_id;
 	private Integer location_id;
+	
+	private ArrayList<EmployeesDTO> employeesDTOs; // 부서는 사원을 가지고 있다. -- 양방향
+	//부서는 사원과 1:N 관계이기 때문에 사원이 몇명이 오는지 모름 --arraylist
+	
 	public Integer getDepartment_id() {
 		return department_id;
+	}
+	public ArrayList<EmployeesDTO> getEmployeesDTOs() {
+		return employeesDTOs;
+	}
+	public void setEmployeesDTOs(ArrayList<EmployeesDTO> employeesDTOs) {
+		this.employeesDTOs = employeesDTOs;
 	}
 	public void setDepartment_id(Integer department_id) {
 		this.department_id = department_id;

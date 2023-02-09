@@ -2,6 +2,8 @@ package com.iu.main.employees;
 
 import java.sql.Date;
 
+import com.iu.main.departments.DepartmentDTO;
+
 import oracle.sql.DATE;
 
 public class EmployeesDTO {
@@ -16,6 +18,8 @@ public class EmployeesDTO {
 	private Double COMMISSION_PCT;
 	private Integer MANAGER_ID;
 	private Integer DEPARTMENT_ID;
+	
+	//private DepartmentDTO departmentDTO; // 사원은 부서와 1:1 관계이기 때문에 -- 단방향
 	
 	public Integer getEMPLOYEE_ID() {
 		return EMPLOYEE_ID;

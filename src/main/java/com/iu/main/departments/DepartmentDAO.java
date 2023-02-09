@@ -6,12 +6,58 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.iu.main.employees.EmployeesDTO;
 import com.iu.main.util.DBConnection;
 
 public class DepartmentDAO {//방법1
+	//
+	
+	public void getInfos() throws Exception {
+		System.out.println("모르겠당 집가고 싶당 강사님 집보내주세용");
+		Connection connection = DBConnection.getConnection();
+		String sql = "SELECT E.FIRAT_NAME, D.DEPARTMENT_NAME "
+				+ "FROM EMPLOYEES E INNER JOIN DEPARTMENT D "
+				+ "USING(DEPARTMENT_ID) WHERE DEPARTMENT_ID =30";
+		PreparedStatement st = connection.prepareStatement(sql);
+		ResultSet rs = st.executeQuery();
+		DepartmentDTO departmentDTO = new DepartmentDTO();
+		departmentDTO.setEmployeesDTOs(new ArrayList<EmployeesDTO>());
+		while(rs.next()) {
+			if(departmentDTO.getDepartment_name()==null) {
+			departmentDTO.setDepartment_name(rs.getString("DEPARTMENT_NAME"));
+			}
+			EmployeesDTO employeesDTO = new EmployeesDTO();
+			employeesDTO.setFIRST_NAME(rs.getString("FIRST_NAME"));
+			departmentDTO.getEmployeesDTOs().add(employeesDTO);
+		}
+	}
+	
+	//JOIN
+	public DepartmentDTO getInfo() throws Exception{
+		DepartmentDTO departmentDTO = null;
+		Connection connection = DBConnection.getConnection();
+		String sql = "SELECT E.FIRST_NAME D.DEPARTMENT_NAME "
+				+ "FROM EMPLOYEES E INNER JOIN DEPARTMENTS D "
+				+ "USTIND(DEPARTMENT_ID) WHERE E.EMPLOYEE_ID=100";
+		PreparedStatement st = connection.prepareStatement(sql);
+		ResultSet rs = st.executeQuery();
+		if(rs.next()) {
+			departmentDTO = new DepartmentDTO();
+			departmentDTO.setEmployeesDTOs(new ArrayList<EmployeesDTO>());
+			departmentDTO.setDepartment_name(rs.getString("DEPARTMENT_NAME"));
+			departmentDTO.getEmployeesDTOs().get(0).setFIRST_NAME(rs.getString("DEPARTMENT_NAME"));
+			EmployeesDTO employeesDTO = new EmployeesDTO();
+			employeesDTO.setFIRST_NAME(rs.getString("FIRST_NAME"));
+			departmentDTO.getEmployeesDTOs().add(employeesDTO);
+		}
+		return departmentDTO;
+	}
+	
+	
 	public int updateDate(DepartmentDTO departmentDTO) throws Exception{
 		Connection connection = DBConnection.getConnection();
-		String sql = "UPDATE DEPARTMENTS SET DEPARTMENT_NAME = ?, MANAGER_ID=?, LOCATION_ID=? WHERE DEPARTMENT_ID = ?";
+		String sql = "UPDATE DEPARTMENTS SET DEPARTMENT_NAME = ?, "
+				+ "MANAGER_ID=?, LOCATION_ID=? WHERE DEPARTMENT_ID = ?";
 		PreparedStatement st = connection.prepareStatement(sql);
 		st.setString(1, departmentDTO.getDepartment_name());
 		st.setInt(2, departmentDTO.getManager_id());
@@ -38,7 +84,8 @@ public class DepartmentDAO {//방법1
 	//insert
 	public int setData(DepartmentDTO departmentDTO) throws Exception{
 		Connection connection = DBConnection.getConnection();
-		String sql = "INSERT INTO DEPARTMENTS(DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID) "
+		String sql = "INSERT INTO DEPARTMENTS(DEPARTMENT_ID, DEPARTMENT_NAME, "
+				+ "MANAGER_ID, LOCATION_ID) "
 				+ "VALUES(DEPARTMENTS_SEQ.NEXTVAL, ? , ? , ? )";
 		PreparedStatement st = connection.prepareStatement(sql);
 		st.setString(1, departmentDTO.getDepartment_name());
